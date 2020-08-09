@@ -48,9 +48,9 @@ drop table if exists Degree53.Post;
 go
 
 create table Degree53.Post
-     ( Id             int              not null
-     , Title          nvarchar(40)         null
-     , Content        nvarchar(256)        null
+     ( Id             int identity(1,1) not null
+     , Title          nvarchar(40)          null
+     , Content        nvarchar(256)         null
      , constraint PK_Post_Id primary key clustered (Id) );
 go
 
@@ -170,7 +170,7 @@ drop table if exists Degree53.PostDetail;
 go
 
 create table Degree53.PostDetail
-     ( Id                 int              not null
+     ( Id             int identity(1,1)   not null
      , NumbersOfViews     int              not null
      , PostId             int              not null
      , CreationDate       datetimeoffset   not null
