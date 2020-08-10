@@ -1,15 +1,20 @@
 ---------------------------------------------------------- Create Database------------------
 print ' Create - Degree53 Database'
 go
-if (db_id(N'Degree53Database') is null)
-begin
-  exec ('create database Degree53Database');
-end;
-  go
 
----------------------------------------------------------- Create Schema -------------------
-use Degree53Database
+ if not exists(select * from sys.databases where name='Degree53Database')
+begin
+drop database Degree53Database
+end;
 go
+
+ if not exists(select * from sys.databases where name='Degree53Database')
+begin
+	  exec ('create database Degree53Database');
+end;
+ go
+ --Please change Db at this point
+---------------------------------------------------------- Create Schema -------------------
 
 print 'Create - Degree53 schema';
 go
@@ -50,7 +55,7 @@ go
 create table Degree53.Post
      ( Id             int identity(1,1) not null
      , Title          nvarchar(40)          null
-     , Content        nvarchar(256)         null
+     , Content        nvarchar(max)         null
      , constraint PK_Post_Id primary key clustered (Id) );
 go
 
@@ -64,7 +69,7 @@ go
 create table Degree53Audit.Post
      ( Id             int              not null
      , Title          nvarchar(40)         null
-     , Content        nvarchar(256)        null
+     , Content        nvarchar(max)        null
      , AuditedOn      datetimeoffset   not null
      , EditOperation  nvarchar(16)     not null );
 go
